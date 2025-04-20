@@ -5,7 +5,6 @@
 int clock(int* pages, int numpages, int numframes);
 void display(int* frames, int numframes, int pagefault);
 int isIn(int* frames, int numframes, int page);
-int min(int *arr, int size);
 
 void display_truths(bool* ref_bits, int numframes);
 
@@ -76,9 +75,3 @@ void display_truths(bool* ref_bits, int numframes)
 	printf("\n");
 }
 
-int min(int *arr, int size)
-{
-	int min_i = 0;
-	for (int i=0; i<size; i++) if (arr[i] < arr[min_i]) min_i = i;
-	return min_i;
-}
