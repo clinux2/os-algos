@@ -3,7 +3,9 @@
 #include <stdbool.h>
 
 int fifo(int* pages, int numpages, int* frames, int numframes);
-void display(int* frames, int numframes);
+bool isIn(int* frames, int numframes, int page);
+void display(int* frames, int numframes, int hand, int pagefault);
+
 int main()
 {
 	int numpages = 20, numframes = 3;
@@ -15,33 +17,40 @@ int main()
 
 int fifo(int* pages, int numpages, int* frames, int numframes)
 {
-	int cur_frame_i = 0;
-	int num_pagefault = 0;
-	bool isIn;
+	int hand = 0;
+	int pagefault = 0;
+	bool is_in;
+	
 	for (int i=0; i<numpages; i++)
 	{
 		
-		//Check if page fault
-		isIn = false;
-		for (int j = 0; j<numframes; j++) 
-			if (frames[j] == pages[i]) {isIn = true; break;};	
-		if (isIn) continue;
-			
-		num_pagefault++;
-		frames[cur_frame_i] = pages[i];
-		cur_frame_i++;
-		cur_frame_i = cur_frame_i % numframes;
+		//If already in memory, skip
+		is_in = isIn(frames, numframes, pages[i]);
+		if (is_in) continue;
 		
-		display(frames, numframes);	
-		printf(" hand: %d\n", cur_frame_i);
+		//Page fault
+		pagefault++;
+		frames[hand] = pages[i];
+		hand++;
+		hand = hand % numframes;
+		
+		display(frames, numframes, hand, pagefault);	
 	}
-	return num_pagefault;
+	return pagefault;
 }
 
-void display(int* frames, int numframes)
+bool isIn(int* frames, int numframes, int page)
+{
+	for (int i=0; i<numframes; i++) if (frames[i] == page) return true;
+	return false; 
+}
+
+void display(int* frames, int numframes, int hand, int pagefault)
 {
 	
 	for (int i=0; i<numframes; i++)
 		printf("%d ", frames[i]);
 	printf("\n");
+	printf(" hand: %d\n", hand);
+	printf("pagefault: %d\n\n", pagefault);
 }
