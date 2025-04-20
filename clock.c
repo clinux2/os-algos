@@ -20,8 +20,7 @@ int clock(int* pages, int numpages, int numframes)
 {
 	int *frames = (int*)malloc(numframes * sizeof(int));
 	bool *ref_bits = (bool*)malloc(numframes * sizeof(bool));
-	int pagefault = 0;
-	int next_victim = 0;
+	int pagefault = 0, next_victim = 0;
 	int isIn_i;
 	
 	for (int i=0; i<numframes; i++) {frames[i] = -1; ref_bits[i] = false;}	

@@ -19,8 +19,7 @@ int lru(int* pages, int numpages, int numframes)
 {
 	int *frames = (int*)malloc(numframes * sizeof(int));
 	int *lru_trackings = (int*)malloc(numframes * sizeof(int));
-	int pagefault = 0;
-	int clock = 0;
+	int pagefault = 0, clock = 0;
 	
 	for (int i=0; i<numframes; i++) frames[i] = -1;
 	display(frames, numframes, pagefault);
