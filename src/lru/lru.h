@@ -4,9 +4,9 @@
 #include <stdbool.h>
 
 int lru(int* pages, int numpages, int numframes);
-void display(int* frames, int numframes, int pagefault);
-int isIn(int* frames, int numframes, int page);
-int min(int *arr, int size);
+void lru_display(int* frames, int numframes, int pagefault);
+int lru_isIn(int* frames, int numframes, int page);
+int lru_min(int *arr, int size);
 
 
 #endif

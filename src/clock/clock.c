@@ -16,7 +16,7 @@ int clock(int* pages, int numpages, int numframes)
 	for (int i=0; i<numpages; i++) 
 	{
 		//Update ref bit if already in memory	
-		isIn_i = isIn(frames, numframes, pages[i]);	
+		isIn_i = clock_isIn(frames, numframes, pages[i]);	
 		if (isIn_i >= 0) {ref_bits[isIn_i] = true;  continue;}
 		
 		//Page fault!!!
@@ -27,25 +27,26 @@ int clock(int* pages, int numpages, int numframes)
 			next_victim++;
 			next_victim = next_victim % numframes;
 		}
-		display_truths(ref_bits, numframes);
+		clock_display_truths(ref_bits, numframes);
 		printf("frames: \n");
 		frames[next_victim] = pages[i];	
 		next_victim++;
 		next_victim = next_victim % numframes;
 		
-		display(frames, numframes, pagefault);
+		clock_display(frames, numframes, pagefault);
 	}
 	
 
 	return pagefault;
 }
 
-static int isIn(int* frames, int numframes, int page)
+int clock_isIn(int* frames, int numframes, int page)
 {
 	for (int i=0; i<numframes; i++) if (frames[i] == page) return i;
 	return -1; 
 }
-static void display(int* frames, int numframes, int pagefault)
+
+void clock_display(int* frames, int numframes, int pagefault)
 {
 	for (int i=0; i<numframes; i++)
 		printf("%d ", frames[i]);
@@ -54,7 +55,7 @@ static void display(int* frames, int numframes, int pagefault)
 	
 }
 
-static void display_truths(bool* ref_bits, int numframes)
+void clock_display_truths(bool* ref_bits, int numframes)
 {
 	printf("ref_bits: \n");
 	for (int i=0; i<numframes; i++)

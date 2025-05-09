@@ -18,7 +18,7 @@ int fifo(int* pages, int numpages, int numframes)
 	{
 		
 		//If already in memory, skip
-		is_in = isIn(frames, numframes, pages[i]);
+		is_in = fifo_isIn(frames, numframes, pages[i]);
 		if (is_in >= 0) continue;
 		
 		//Page fault
@@ -27,18 +27,18 @@ int fifo(int* pages, int numpages, int numframes)
 		hand++;
 		hand = hand % numframes;
 		
-		display(frames, numframes, hand, pagefault);	
+		fifo_display(frames, numframes, hand, pagefault);	
 	}
 	return pagefault;
 }
 
-inline int isIn(int* frames, int numframes, int page)
+int fifo_isIn(int* frames, int numframes, int page)
 {
 	for (int i=0; i<numframes; i++) if (frames[i] == page) return i;
 	return -1; 
 }
 
-inline void display(int* frames, int numframes, int hand, int pagefault)
+void fifo_display(int* frames, int numframes, int hand, int pagefault)
 {
 	
 	for (int i=0; i<numframes; i++)

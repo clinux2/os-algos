@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "./lru/lru.h"
 #include "./fifo/fifo.h"
 #include "./clock/clock.h"
@@ -9,8 +11,11 @@ int main()
 
 
     //Test each algorithm
+	printf("#####LRU: \n\n");
 	lru(pages, numpages,  numframes);
+	printf("\n#####FIFO: \n");
 	fifo(pages, numpages,  numframes);
+	printf("#####CLOCK: \n\n");
 	clock(pages, numpages,  numframes);
 
 }

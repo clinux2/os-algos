@@ -4,8 +4,8 @@
 #include <stdbool.h>
 
 int fifo(int* pages, int numpages, int numframes);
-inline int isIn(int* frames, int numframes, int page);
-inline void display(int* frames, int numframes, int hand, int pagefault);
+int fifo_isIn(int* frames, int numframes, int page);
+void fifo_display(int* frames, int numframes, int hand, int pagefault);
 
 
 #endif
