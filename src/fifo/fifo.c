@@ -9,7 +9,7 @@ int fifo(int* pages, int numpages, int numframes)
 {
 	int *frames = (int*)malloc(numframes * sizeof(int));
 	int hand = 0, pagefault = 0;
-	bool is_in;
+	int is_in;
 	
 	for (int i=0; i<numframes; i++) frames[i] = -1;
 
@@ -19,7 +19,7 @@ int fifo(int* pages, int numpages, int numframes)
 		
 		//If already in memory, skip
 		is_in = isIn(frames, numframes, pages[i]);
-		if (is_in) continue;
+		if (is_in >= 0) continue;
 		
 		//Page fault
 		pagefault++;
@@ -32,13 +32,13 @@ int fifo(int* pages, int numpages, int numframes)
 	return pagefault;
 }
 
-static bool isIn(int* frames, int numframes, int page)
+inline int isIn(int* frames, int numframes, int page)
 {
-	for (int i=0; i<numframes; i++) if (frames[i] == page) return true;
-	return false; 
+	for (int i=0; i<numframes; i++) if (frames[i] == page) return i;
+	return -1; 
 }
 
-static void display(int* frames, int numframes, int hand, int pagefault)
+inline void display(int* frames, int numframes, int hand, int pagefault)
 {
 	
 	for (int i=0; i<numframes; i++)
