@@ -2,17 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int fifo(int* pages, int numpages, int numframes);
-bool isIn(int* frames, int numframes, int page);
-void display(int* frames, int numframes, int hand, int pagefault);
+#include "./fifo.h"
 
-int main()
-{
-	int numpages = 20, numframes = 3;
-	int pages[] = {7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1};
-	fifo(pages, numpages,  numframes);
-
-}
 
 int fifo(int* pages, int numpages, int numframes)
 {
@@ -41,13 +32,13 @@ int fifo(int* pages, int numpages, int numframes)
 	return pagefault;
 }
 
-bool isIn(int* frames, int numframes, int page)
+static bool isIn(int* frames, int numframes, int page)
 {
 	for (int i=0; i<numframes; i++) if (frames[i] == page) return true;
 	return false; 
 }
 
-void display(int* frames, int numframes, int hand, int pagefault)
+static void display(int* frames, int numframes, int hand, int pagefault)
 {
 	
 	for (int i=0; i<numframes; i++)

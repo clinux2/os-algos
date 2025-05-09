@@ -2,19 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int clock(int* pages, int numpages, int numframes);
-void display(int* frames, int numframes, int pagefault);
-int isIn(int* frames, int numframes, int page);
-
-void display_truths(bool* ref_bits, int numframes);
-
-int main()
-{
-	int numpages = 20, numframes = 3;
-	int pages[] = {7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1};
-	clock(pages, numpages,  numframes);
-
-}
+#include "./clock.h"
 
 int clock(int* pages, int numpages, int numframes)
 {
@@ -52,12 +40,12 @@ int clock(int* pages, int numpages, int numframes)
 	return pagefault;
 }
 
-int isIn(int* frames, int numframes, int page)
+static int isIn(int* frames, int numframes, int page)
 {
 	for (int i=0; i<numframes; i++) if (frames[i] == page) return i;
 	return -1; 
 }
-void display(int* frames, int numframes, int pagefault)
+static void display(int* frames, int numframes, int pagefault)
 {
 	for (int i=0; i<numframes; i++)
 		printf("%d ", frames[i]);
@@ -66,7 +54,7 @@ void display(int* frames, int numframes, int pagefault)
 	
 }
 
-void display_truths(bool* ref_bits, int numframes)
+static void display_truths(bool* ref_bits, int numframes)
 {
 	printf("ref_bits: \n");
 	for (int i=0; i<numframes; i++)

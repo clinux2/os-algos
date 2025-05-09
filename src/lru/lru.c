@@ -2,18 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int lru(int* pages, int numpages, int numframes);
-void display(int* frames, int numframes, int pagefault);
-int isIn(int* frames, int numframes, int page);
-int min(int *arr, int size);
+#include "./lru.h"
 
-int main()
-{
-	int numpages = 20, numframes = 3;
-	int pages[] = {7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1};
-	lru(pages, numpages,  numframes);
-
-}
 
 int lru(int* pages, int numpages, int numframes)
 {
@@ -48,12 +38,12 @@ int lru(int* pages, int numpages, int numframes)
 	return pagefault;
 }
 
-int isIn(int* frames, int numframes, int page)
+static int isIn(int* frames, int numframes, int page)
 {
 	for (int i=0; i<numframes; i++) if (frames[i] == page) return i;
 	return -1; 
 }
-void display(int* frames, int numframes, int pagefault)
+static void display(int* frames, int numframes, int pagefault)
 {
 	
 	for (int i=0; i<numframes; i++)
@@ -63,7 +53,7 @@ void display(int* frames, int numframes, int pagefault)
 }
 
 
-int min(int *arr, int size)
+static int min(int *arr, int size)
 {
 	int min_i = 0;
 	for (int i=0; i<size; i++) if (arr[i] < arr[min_i]) min_i = i;
